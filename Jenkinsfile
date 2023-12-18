@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'jenkins-agent' }
+    agent { label 'Jenkins-agent' }
     tools {
         jdk 'Java17'
         maven 'Maven3'
@@ -38,7 +38,8 @@ pipeline {
                  sh "mvn test"
            }
        }
-           stage("SonarQube Analysis"){
+
+       stage("SonarQube Analysis"){
            steps {
 	           script {
 		        withSonarQubeEnv(credentialsId: 'jenkins-sonarqube-token') { 
@@ -47,7 +48,8 @@ pipeline {
 	           }	
            }
        }
-	     stage("Quality Gate"){
+
+       stage("Quality Gate"){
            steps {
                script {
                     waitForQualityGate abortPipeline: false, credentialsId: 'jenkins-sonarqube-token'
@@ -55,7 +57,8 @@ pipeline {
             }
 
         }
-	       stage("Build & Push Docker Image") {
+
+        stage("Build & Push Docker Image") {
             steps {
                 script {
                     docker.withRegistry('',DOCKER_PASS) {
@@ -71,4 +74,3 @@ pipeline {
 
        }
     }
-}
