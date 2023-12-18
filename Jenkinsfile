@@ -18,21 +18,5 @@ pipeline {
                 }
         }
 
-        stage("Build Application"){
-            steps {
-                sh "mvn clean package"
-            }
 
-       }
-
-       stage("Test Application"){
-           steps {
-                 sh "mvn test"
-           }
-       }
-
-     
-                     mimeType: 'text/html',to: "ashfaque.s510@gmail.com"
-      }      
-   }
 }
